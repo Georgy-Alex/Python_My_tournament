@@ -1,0 +1,23 @@
+{%extends 'tournaments/home.html'%}
+
+{%block content%}
+<div class="containerTournam">
+    <div class="tournament">
+        <div class="content">
+            <h2>{{tournam.name}}</h2>
+            <p>{{tournam.description}}</p>
+            <p>{{tournam.regulations}}</p>
+        </div>
+        <div class="date">
+            <p>{{tournam.start_date}}</p>
+            <p>{{tournam.end_date}}</p>
+        </div>
+        {%if tournam in my_tournam%}
+        <form action="{% url 'deletetournam' tournam.id %}" method="post">
+            {% csrf_token %}
+            <button>Удалить</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{%endblock%}

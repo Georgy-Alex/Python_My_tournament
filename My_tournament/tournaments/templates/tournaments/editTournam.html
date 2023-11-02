@@ -1,0 +1,14 @@
+{%extends 'tournaments/home.html'%}
+
+{% block content %}
+<div class="containerTournam">
+    <div class="tournament">
+        <h1>Редактировать турнир</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>Сохранить изменения</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

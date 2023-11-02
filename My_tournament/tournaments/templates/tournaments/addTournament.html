@@ -1,0 +1,15 @@
+{% extends "tournaments/home.html" %}
+
+{%block content%}
+<div class="containerAddTournam">
+    <div class="addTournam">
+        <p class="error" >{{error}}</p>
+        <h2>Создание турнира</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button>Создать турнир</button>
+        </form>
+    </div>
+</div>
+{%endblock%}

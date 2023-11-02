@@ -1,0 +1,38 @@
+.containerTournam {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.tournament{
+background-color: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.tournament h2 {
+font-size: 36px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  }
+.tournament p{
+font-size: 16px;
+line-height: 1.5;
+}
+
+.tournament button {
+  background-color: #007BFF;
+  color: #fff;
+  margin: 25px 0;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Стили для при наведении на кнопку "Подробнее" */
+.tournament button:hover {
+  background-color: #0056b3;
+}

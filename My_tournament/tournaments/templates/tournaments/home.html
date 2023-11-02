@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish&family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+    <link rel="stylesheet" href="{% static 'css/authorization.css' %}">
+    <link rel="stylesheet" href="{% static 'css/my_Tournaments.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tournam.css' %}">
+    <link rel="stylesheet" href="{% static 'css/addTournament.css' %}">
+    <title>My tournament</title>
+</head>
+<body>
+<header>
+    {%block header%}
+    <div class="container">
+        <div class="header-cap">
+            <div class="logo">
+                <h3><a href="{% url 'home' %}">Logo</a></h3>
+            </div>
+             {%if user.is_authenticated%}
+            <nav class="menu-header">
+                <ul class="authoriz">
+                    <li class=""><a href="{% url 'my_Tournaments' %}">Мои турниры</a></li>
+                    <li class=""><a href="{% url 'tournaments' %}">Турниры</a></li>
+                    <li class=""><a href="{% url 'addTournament' %}">Создать турнир</a></li>
+                </ul>
+            </nav>
+            <form action="{% url 'logoutUser' %}" method="post" >
+                {% csrf_token %}
+                <button>Выйти</button>
+            </form>
+            {% else %}
+             <nav class="menu-header">
+                <ul class="authoriz">
+                    <li class="regist"><a href="{% url 'registration' %}">Заргестрироваться</a></li>
+                    <p>/</p>
+                    <li class="enter"><a href="{% url 'authorization' %}">Войти</a></li>
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
+</header>
+<main>
+    {%block content%}
+    <h1>Мои турниры</h1>
+    {% endblock %}
+</main>
+</body>
+</html>

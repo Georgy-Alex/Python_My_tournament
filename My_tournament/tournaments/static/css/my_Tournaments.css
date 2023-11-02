@@ -1,0 +1,52 @@
+.containerMy_tournaments {
+  width: 30%;
+  margin: 25px auto;
+}
+
+/* Стили для каждого элемента списка турниров */
+
+
+.my_tournament_card{
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.my_tournament_card content{
+    display: inline-block;
+}
+
+
+/* Стили для названия турнира */
+.my_tournaments h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Стили для дополнительной информации о турнире */
+.my_tournaments p{
+  font-size: 14px;
+  color: #777;
+}
+
+/* Стили для кнопки "Подробнее" */
+.my_tournaments button {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.my_tournaments button a{
+    color: #fff;
+}
+
+/* Стили для при наведении на кнопку "Подробнее" */
+.my_tournaments button:hover {
+  background-color: #0056b3;
+}
