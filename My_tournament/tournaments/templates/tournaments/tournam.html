@@ -12,6 +12,22 @@
             <p>{{tournam.start_date}}</p>
             <p>{{tournam.end_date}}</p>
         </div>
+        <div>
+            {%for new in news%}
+            <div class="mini-news-card">
+                <h3>{{new.title}}</h3>
+                <p>{{new.content}}</p>
+                <a href="{% url 'new' new.id%}">Читать дальше</a>
+                {%if tournam in my_tournam%}
+                <form action="{% url 'deletetNew' new.id tournam_id %}" method="post">
+                    {% csrf_token %}
+                    <button>Удалить</button>
+                </form>
+                {% endif %}
+            </div>
+            {%endfor%}
+        </div>
+
         {%if tournam in my_tournam%}
         <form action="{% url 'deletetournam' tournam.id %}" method="post">
             {% csrf_token %}

@@ -10,10 +10,17 @@
                 <p>{{tournam.description}}</p>
             </div>
             <button><a href="{% url 'tournam' tournam.id %}">Подробнее</a></button>
+
             <form action="{% url 'editTournam' tournam.id %}" method="get">
                 {% csrf_token %}
                 <button>Редактировать</button>
             </form>
+
+            <form action="{% url 'addNews' tournam.id %}" method="get">
+                {% csrf_token %}
+                <button>Добавить новость</button>
+            </form>
+
         </div>
         {% endfor %}
     </div>

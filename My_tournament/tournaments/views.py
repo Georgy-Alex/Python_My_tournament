@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from .models import Tournament, News
-from .forms import TournamentForm
+from .forms import TournamentForm, NewsTournamentForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -66,8 +66,8 @@ def my_Tournaments(request):
 def tournam(request, tournam_id):
     my_tournam = Tournament.objects.filter(user=request.user)
     tournam = get_object_or_404(Tournament, pk=tournam_id)
-    return render(request, 'tournaments/tournam.html', {'tournam': tournam, 'my_tournam': my_tournam})
-
+    news = News.objects.filter(tournament=tournam)
+    return render(request, 'tournaments/tournam.html', {'tournam': tournam, 'news': news, 'my_tournam': my_tournam})
 
 @login_required
 def addTournament(request):
@@ -109,3 +109,32 @@ def deletetournam(request, tournam_id):
         prod.delete()
         return redirect('tournaments')
 
+def new(request, new_id):
+    new = get_object_or_404(News, pk=new_id)
+    return render(request, 'tournaments/newPage.html', {'new': new})
+
+
+def addNews(request, tournam_id):
+    tournament = Tournament.objects.get(pk=tournam_id)
+
+    if request.method == 'GET':
+        return render(request, 'tournaments/addNews.html', {'form': NewsTournamentForm()})
+
+    else:
+        try:
+            form = NewsTournamentForm(request.POST)
+            new_news = form.save(commit=False)
+            new_news.user = request.user
+            new_news.tournament = tournament
+            new_news.save()
+            return redirect('tournam', tournam_id=tournam_id)
+        except ValueError:
+            return render(request, 'tournaments/addTournament.html',
+                          {'form': TournamentForm(), 'error': 'Неверный данные'})
+
+
+def deletetNew(request, new_id, tournam_id):
+    new = get_object_or_404(News, pk=new_id, user=request.user)
+    if request.method == 'POST':
+        new.delete()
+        return redirect('tournam', tournam_id=tournam_id)

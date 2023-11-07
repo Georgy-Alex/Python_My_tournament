@@ -1,0 +1,40 @@
+/*мини карточка*/
+
+.mini-news-card {
+  width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.mini-news-card h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.mini-news-card p {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+
+.mini-news-card a {
+  display: inline-block;
+  background-color: #007BFF;
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  margin-top: 10px;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.mini-news-card a:hover {
+  background-color: #0056b3;
+}

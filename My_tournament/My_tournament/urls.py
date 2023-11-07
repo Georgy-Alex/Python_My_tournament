@@ -33,6 +33,10 @@ urlpatterns = [
     path('tournaments/', views.tournaments, name='tournaments'),
     path('tournam/<int:tournam_id>', views.tournam, name='tournam'),
 
-    path('tournament/<int:tournam_id>/delete', views.deletetournam, name='deletetournam')
+    path('tournament/<int:tournam_id>/delete', views.deletetournam, name='deletetournam'),
 
+    # Новости
+    path('new/<int:new_id>', views.new, name='new'),
+    path('tournament/<int:tournam_id>/add_news/', views.addNews, name='addNews'),
+    path('deletetNew/<int:new_id>', views.deletetNew, name='deletetNew')
 ]

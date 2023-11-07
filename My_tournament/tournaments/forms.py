@@ -15,3 +15,14 @@ class TournamentForm(ModelForm):
             'start_date': forms.TextInput(attrs={'placeholder': 'Пример: 23.10.2023'}),
             'end_date': forms.TextInput(attrs={'placeholder': 'Пример: 23.10.2023'}),
         }
+
+class NewsTournamentForm(ModelForm):
+    class Meta:
+        model = News
+        fields = ["title", "content"]
+
+        widgets = {
+            'title': forms.TextInput(attrs={'placeholder': 'Название новости'}),
+            'content': forms.Textarea(attrs={'placeholder': 'Контент новости'}),
+        }
+
