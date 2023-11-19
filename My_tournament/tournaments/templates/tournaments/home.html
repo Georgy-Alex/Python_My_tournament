@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mulish&family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish&family=Open+Sans&family=Roboto&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="{% static 'css/registration.css' %}">
     <link rel="stylesheet" href="{% static 'css/authorization.css' %}">
@@ -13,7 +14,17 @@
     <link rel="stylesheet" href="{% static 'css/tournam.css' %}">
     <link rel="stylesheet" href="{% static 'css/cardNews.css' %}">
     <link rel="stylesheet" href="{% static 'css/addTournament.css' %}">
+    <link rel="stylesheet" href="{% static 'css/editTournam.css' %}">
     <title>My tournament</title>
+    <script>
+            let flagReg = false
+            const flagRegist = () =>{
+                flagReg == false ? flagReg = true : flagReg = false
+                console.log(flagReg)
+                return flagReg
+            }
+
+    </script>
 </head>
 <body>
 <header>
@@ -23,7 +34,7 @@
             <div class="logo">
                 <h3><a href="{% url 'home' %}">Logo</a></h3>
             </div>
-             {%if user.is_authenticated%}
+            {%if user.is_authenticated%}
             <nav class="menu-header">
                 <ul class="authoriz">
                     <li class=""><a href="{% url 'my_Tournaments' %}">Мои турниры</a></li>
@@ -31,18 +42,22 @@
                     <li class=""><a href="{% url 'addTournament' %}">Создать турнир</a></li>
                 </ul>
             </nav>
-            <form action="{% url 'logoutUser' %}" method="post" >
+
+            <form action="{% url 'logoutUser' %}" method="post">
                 {% csrf_token %}
-                <button>Выйти</button>
+                <button class="logout">Выйти</button>
             </form>
             {% else %}
-             <nav class="menu-header">
+            <nav class="menu-header">
                 <ul class="authoriz">
                     <li class="regist"><a href="{% url 'registration' %}">Заргестрироваться</a></li>
                     <p>/</p>
                     <li class="enter"><a href="{% url 'authorization' %}">Войти</a></li>
                 </ul>
             </nav>
+            {% endif %}
+            {% if flagRegist %}
+            <p>lol</p>
             {% endif %}
         </div>
     </div>

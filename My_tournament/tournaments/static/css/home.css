@@ -94,14 +94,14 @@ legend {
 /* Обнуление end */
 
 .container{
-	width: 1650px;
+	width: 1450px;
 	margin: 0 auto;
-}}
+}
 
 .header{}
 
 header{
-    background-color: #2c3e50;
+    background-color: #2c5043;
 }
 
 .header-cap{
@@ -133,6 +133,16 @@ header{
 
 
 .header-cap li a:hover{
-  text-decoration: underline;
+  color: #d1cdcd;
+}
+
+.header-cap .logout{
+  font-size: 24px;
+  font-weight: bold;
+  color: #dd2900;
+}
+
+.header-cap .logout:hover{
+color: #dd2900a8;
 }
 

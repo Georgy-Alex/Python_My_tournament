@@ -12,8 +12,16 @@ background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+.tournament .date{
+  text-align: center;
+}
+
+.tournament .date p{
+  font-weight: bold;
+}
+
 .tournament h2 {
-font-size: 36px;
+  font-size: 36px;
   color: #333;
   text-align: center;
   margin-bottom: 20px;
@@ -24,15 +32,17 @@ line-height: 1.5;
 }
 
 .tournament button {
-  background-color: #007BFF;
+  background-color: #2c3e50;
+  border-radius: 4px;
   color: #fff;
   margin: 25px 0;
-  padding: 5px 10px;
+  padding: 8px 12px;
   border: none;
   cursor: pointer;
 }
 
-/* Стили для при наведении на кнопку "Подробнее" */
+
 .tournament button:hover {
-  background-color: #0056b3;
+  background-color: #2c5043;
 }
+

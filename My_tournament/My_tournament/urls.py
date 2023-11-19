@@ -38,5 +38,11 @@ urlpatterns = [
     # Новости
     path('new/<int:new_id>', views.new, name='new'),
     path('tournament/<int:tournam_id>/add_news/', views.addNews, name='addNews'),
-    path('deletetNew/<int:new_id>', views.deletetNew, name='deletetNew')
+    path('deletetNew/<int:new_id>/<int:tournam_id>', views.deletetNew, name='deletetNew'),
+
+    # Таблица
+
+    path('trueORFalse/<int:tournam_id>', views.trueORfalse, name='trueORFalse'),
+    path('registrationTeam/<int:tournam_id>', views.registTeam, name='registTeam'),
+
 ]

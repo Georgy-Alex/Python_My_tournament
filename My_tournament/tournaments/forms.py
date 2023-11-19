@@ -1,7 +1,7 @@
 from django import forms
 
 from django.forms import ModelForm
-from .models import Tournament, News
+from .models import Tournament, News, TournamentTable, UserProfile
 
 class TournamentForm(ModelForm):
     class Meta:
@@ -25,4 +25,23 @@ class NewsTournamentForm(ModelForm):
             'title': forms.TextInput(attrs={'placeholder': 'Название новости'}),
             'content': forms.Textarea(attrs={'placeholder': 'Контент новости'}),
         }
+
+class RegistrationTeamTournamentForm(ModelForm):
+    class Meta:
+        model = TournamentTable
+        fields = ["team"]
+
+        widgets = {
+            'team': forms.TextInput(attrs={'placeholder': 'Название команды'}),
+        }
+
+class UserProfileForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ["nameUser"]
+
+        widgets = {
+            'nameUser': forms.TextInput(attrs={'placeholder': 'Ваше имя', 'label': 'Ваше имя'}),
+        }
+
 
