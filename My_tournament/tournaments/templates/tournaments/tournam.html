@@ -8,51 +8,65 @@
             <div class="date">
                 <p>Начало турнира: {{tournam.start_date}}</p>
                 <p>Конец: {{tournam.end_date}}</p>
+                <p>Почта для связи с создателем: {{tournam.email}}</p>
             </div>
+            <h3>О турнире</h3>
             <p>{{tournam.description}}</p>
-            <p>{{tournam.regulations}}</p>
         </div>
-
-        <form action="{% url 'trueORFalse' tournam.id %}" method="post">
-            {% csrf_token %}
-            <button>Регистрация</button>
-        </form>
-        {% if flag %}
-        <form action="{% url 'registTeam' tournam.id %}" method="post">
-            {% csrf_token %}
-            {{form.as_p}}
-            <button>Зарегистрироваться</button>
-        </form>
-        {% endif %}
-        <table>
+        {% if tournam_table %}
+        <table class="table_team">
             <thead>
-            <tr>
+            <tr class="fields">
                 <th>Команда</th>
-                <th>Дата матча</th>
-                <th>Противник</th>
-                <th>Результат</th>
+                <th>Матчей</th>
+                <th>В</th>
+                <th>Н</th>
+                <th>П</th>
+                <th>ГОЛЫ</th>
+                <th>РМ</th>
+                <th>ОЧКИ</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Команда 1</td>
-                <td>01.01.2023</td>
-                <td>Команда 2</td>
-                <td>2:1</td>
+            {%for team in tournam_table%}
+            <tr class="fields_table">
+                <td>{{team.team}}</td>
+                <td>{{team.matches_played}}</td>
+                <td>{{team.wins}}</td>
+                <td>{{team.draws}}</td>
+                <td>{{team.losses}}</td>
+                <td>{{team.goals_for}} - {{team.goals_against}}</td>
+                <td>{{team.goals_difference}}</td>
+                <td>{{team.points}}</td>
             </tr>
-            <tr>
-                <td>Команда 3</td>
-                <td>02.01.2023</td>
-                <td>Команда 4</td>
-                <td>0:0</td>
-            </tr>
+            {% endfor %}
             </tbody>
         </table>
+        {% endif %}
+         {%if flagBlock and flagTeam%}
+            <form action="{% url 'trueORFalse' tournam.id %}" method="post">
+                {% csrf_token %}
+                <button>Регистрация</button>
+            </form>
+            {% if flag %}
+            <form action="{% url 'registTeam' tournam.id %}" method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button>Зарегистрироваться</button>
+            </form>
+            {% endif %}
+        {%else%}
+        <h3>Вы были заблокированны администратором или Регистрация была законченв</h3>
+        {%endif%}
+        <div class="regulation">
+            <h3>Регламент</h3>
+            <p>{{tournam.regulations}}</p>
+        </div>
         <div class="news_tournam">
             {%for new in news%}
             <div class="mini-news-card">
                 <h3>{{new.title}}</h3>
-                <p>{{new.content}}</p>
+                <p>{{new.content|truncatechars:20}}</p>
                 <a href="{% url 'new' new.id%}">Читать дальше</a>
                 {%if tournam in my_tournam%}
                 <form action="{% url 'deletetNew' new.id tournam.id%}" method="post">
@@ -65,9 +79,13 @@
         </div>
 
         {%if tournam in my_tournam%}
-        <form action="{% url 'deletetournam' tournam.id %}" method="post">
+        <form class="deleteTournam" action="{% url 'deletetournam' tournam.id %}" method="post">
             {% csrf_token %}
-            <button>Удалить</button>
+            <button>Удалить турнир</button>
+        </form>
+        <form class="editTableTournam" action="{% url 'editTable' tournam.id %}" method="get">
+            {% csrf_token %}
+            <button>Редактировать таблицу</button>
         </form>
         {% endif %}
     </div>

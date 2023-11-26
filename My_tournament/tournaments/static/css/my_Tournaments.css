@@ -3,13 +3,11 @@
   margin: 25px auto;
 }
 
-/* Стили для каждого элемента списка турниров */
-
 
 .my_tournament_card{
   margin: 10px auto;
   padding: 20px;
-  width: 670px;
+  width: 800px;
   border-radius: 3px;
   background-color: #f0f0f0;
   border: 1px solid #ccc;
@@ -23,19 +21,17 @@
 }
 
 
-/* Стили для названия турнира */
 .my_tournaments h3 {
   font-size: 18px;
   font-weight: bold;
 }
 
-/* Стили для дополнительной информации о турнире */
 .my_tournaments p{
+  width: 300px;
   font-size: 14px;
   color: #777;
 }
 
-/* Стили для кнопки "Подробнее" */
 .my_tournaments button {
   border-radius: 4px;
   background-color: #2c3e50;
@@ -49,7 +45,6 @@
     color: #fff;
 }
 
-/* Стили для при наведении на кнопку "Подробнее" */
 .my_tournaments button:hover {
   background-color: #2c5043;
 }

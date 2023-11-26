@@ -28,6 +28,7 @@ urlpatterns = [
 
     # Турниры
     path('my_Tournaments/', views.my_Tournaments, name='my_Tournaments'),
+    path('my_RegistrationTournam/', views.myRegTournam, name='myRegTournam'),
     path('addTournament/', views.addTournament, name='addTournament'),
     path('edittournaments/<int:tournam_id>', views.editTournam, name='editTournam'),
     path('tournaments/', views.tournaments, name='tournaments'),
@@ -41,8 +42,10 @@ urlpatterns = [
     path('deletetNew/<int:new_id>/<int:tournam_id>', views.deletetNew, name='deletetNew'),
 
     # Таблица
-
     path('trueORFalse/<int:tournam_id>', views.trueORfalse, name='trueORFalse'),
     path('registrationTeam/<int:tournam_id>', views.registTeam, name='registTeam'),
+    path('editTableTournament/<int:tournam_id>', views.editTable, name='editTable'),
+    path('deletetTableTeam/<int:team_id>', views.deletetTableTeam, name='deletetTableTeam'),
+    path('blockedUser/<int:team_id>', views.blockUser, name='blockUser'),
 
 ]

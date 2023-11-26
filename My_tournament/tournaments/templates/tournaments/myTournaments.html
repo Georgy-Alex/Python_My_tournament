@@ -7,7 +7,7 @@
         <div class="my_tournament_card">
             <div class="content">
                 <h2>{{tournam.name}}</h2>
-                <p>{{tournam.description}}</p>
+                <p>{{tournam.description|truncatechars:100}}</p>
             </div>
             <button><a href="{% url 'tournam' tournam.id %}">Подробнее</a></button>
 

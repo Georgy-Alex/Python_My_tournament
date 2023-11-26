@@ -3,8 +3,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from .models import Tournament, News, UserProfile
-from .forms import TournamentForm, NewsTournamentForm, RegistrationTeamTournamentForm, UserProfileForm
+from .models import Tournament, News, UserProfile, TournamentTable
+from .forms import TournamentForm, NewsTournamentForm, RegistrationTeamTournamentForm, UserProfileForm, \
+    EditTableTournamentForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -16,7 +17,8 @@ def home(request):
 
 def registration(request):
     if request.method == 'GET':
-        return render(request, 'tournaments/registration.html', {'Login_form': UserCreationForm(), 'Name_form': UserProfileForm()})
+        return render(request, 'tournaments/registration.html',
+                      {'Login_form': UserCreationForm(), 'Name_form': UserProfileForm()})
     else:
         if request.POST['password1'] == request.POST['password2']:
             try:
@@ -30,7 +32,8 @@ def registration(request):
                 return redirect('home')
             except IntegrityError:
                 return render(request, 'tournaments/registration.html',
-                              {'Login_form': UserCreationForm(), 'Name_form': UserProfileForm(), 'error': 'имя пользователя уже используется'})
+                              {'Login_form': UserCreationForm(), 'Name_form': UserProfileForm(),
+                               'error': 'имя пользователя уже используется'})
         else:
             return render(request, 'tournaments/registration.html',
                           {'form': UserCreationForm(), 'error': 'Пароль неверный'})
@@ -69,6 +72,10 @@ def my_Tournaments(request):
     tournams = Tournament.objects.filter(user=request.user)
     return render(request, 'tournaments/myTournaments.html', {'tournams': tournams})
 
+def myRegTournam(request):
+    userProfile = UserProfile.objects.get(user=request.user)
+    tournams = userProfile.registered_tournaments.all()
+    return render(request, 'tournaments/myRegistrationTournam.html', {'tournams': tournams})
 
 flag = False
 
@@ -81,12 +88,19 @@ def trueORfalse(request, tournam_id):
 
 
 def tournam(request, tournam_id):
+    userProfile = UserProfile.objects.get(user=request.user)
     my_tournam = Tournament.objects.filter(user=request.user)
     tournam = get_object_or_404(Tournament, pk=tournam_id)
+    flagBlock = userProfile not in tournam.blocked_users.all()
+    tournam_table = TournamentTable.objects.filter(tournament=tournam).order_by('-points')
+    flagTeam = tournam.total_teams != len(tournam_table)
     news = News.objects.filter(tournament=tournam)
+
+
     return render(request, 'tournaments/tournam.html',
-                  {'tournam': tournam, 'form': RegistrationTeamTournamentForm(), 'news': news, 'my_tournam': my_tournam,
-                   'flag': flag})
+                  {'tournam': tournam, 'form': RegistrationTeamTournamentForm(), 'news': news,
+                   'tournam_table': tournam_table, 'my_tournam': my_tournam,
+                   'flagBlock': flagBlock, 'flagTeam': flagTeam, 'flag': flag})
 
 
 @login_required
@@ -121,14 +135,12 @@ def editTournam(request, tournam_id):
                                                                     'form': form,
                                                                     'error': 'Неверные данные'})
 
-
 @login_required
 def deletetournam(request, tournam_id):
-    prod = get_object_or_404(Tournament, pk=tournam_id, user=request.user)
+    tournam = get_object_or_404(Tournament, pk=tournam_id, user=request.user)
     if request.method == 'POST':
-        prod.delete()
+        tournam.delete()
         return redirect('tournaments')
-
 
 # ТАБЛИЦА
 
@@ -144,12 +156,44 @@ def registTeam(request, tournam_id):
             new_team.nameUser = userProfile
             new_team.save()
             userProfile.registered_tournaments.add(tournament)
-            print(len(userProfile))
+            global flag
+            flag = False
             return redirect('tournam', tournam_id=tournam_id)
         except ValueError:
-            print('NO')
-            return render(request, 'tournaments/tournam.html', {'form': RegistrationTeamTournamentForm(), 'error': 'Неверный данные'})
+            return render(request, 'tournaments/tournam.html',
+                          {'form': RegistrationTeamTournamentForm(), 'error': 'Неверный данные'})
 
+
+def editTable(request, tournam_id):
+    tournam = get_object_or_404(Tournament, pk=tournam_id)
+    tournam_table = TournamentTable.objects.filter(tournament=tournam).order_by('-points')
+    form = []
+    for team in tournam_table:
+        form.append(EditTableTournamentForm(instance=team, prefix=team.id))
+    if request.method == 'GET':
+        return render(request, 'tournaments/editTableTournam.html', {'tournam_table': tournam_table,
+                                                                     'form': form})
+    else:
+        try:
+            for team in tournam_table:
+                form_team = EditTableTournamentForm(request.POST, instance=team, prefix=team.id)
+                form_team.save()
+            return redirect('tournam', tournam_id=tournam_id)
+        except ValueError:
+            return render(request, 'tournaments/editTableTournam.html', {'tournam_table': tournam_table,
+                                                                         'form': form,
+                                                                         'error': 'Неверные данные'})
+def blockUser(request, team_id):
+    team = get_object_or_404(TournamentTable, pk=team_id)
+    if request.method == 'GET':
+        team.tournament.blocked_users.add(team.nameUser)
+        return redirect('tournam', tournam_id=team.tournament.id)
+
+def deletetTableTeam(request, team_id):
+    team = get_object_or_404(TournamentTable, pk=team_id)
+    if request.method == 'GET':
+        team.delete()
+        return redirect('tournaments')
 
 # Новости
 

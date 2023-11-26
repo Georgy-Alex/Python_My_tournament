@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    nameUser = models.CharField(max_length=100, default='Inkognit', null=True)
+    nameUser = models.CharField(max_length=100, null=True)
     registered_tournaments = models.ManyToManyField('Tournament', through='TournamentTable')
     def __str__(self):
         return self.nameUser
@@ -13,8 +13,11 @@ class Tournament(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     regulations = models.TextField(blank=True)
+    email = models.EmailField(null=True)
+    total_teams = models.IntegerField(null=False)
     start_date = models.DateField()
     end_date = models.DateField()
+    blocked_users = models.ManyToManyField('UserProfile', blank=True)
 
     def __str__(self):
         return self.name

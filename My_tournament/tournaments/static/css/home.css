@@ -146,3 +146,37 @@ header{
 color: #dd2900a8;
 }
 
+.containerSite{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.titleSite{
+  font-size: 36px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.textSite{
+    width: 700px;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: bold;
+     margin-bottom: 20px;
+}
+
+.started h2{
+  font-size: 26px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.started ol{
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+

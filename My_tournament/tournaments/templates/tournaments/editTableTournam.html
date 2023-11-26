@@ -1,0 +1,45 @@
+{% extends 'tournaments/home.html' %}
+
+{% block content %}
+<div class="containerEditTable">
+    <div class="tournament">
+        {{ error }}
+        <form action="" method="post">
+            {% csrf_token %}
+            <table class="table_team">
+                <thead>
+                <tr class="fields">
+                    <th>Команда</th>
+                    <th>Матчей</th>
+                    <th>В</th>
+                    <th>Н</th>
+                    <th>П</th>
+                    <th>ГОЛЫ</th>
+                    <th>РМ</th>
+                    <th>ОЧКИ</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%for form_team in form%}
+                <tr class="fields_table">
+                    <td>{{form_team.team}}</td>
+                    <td>{{form_team.matches_played}}</td>
+                    <td>{{form_team.wins}}</td>
+                    <td>{{form_team.draws}}</td>
+                    <td>{{form_team.losses}}</td>
+                    <td>{{form_team.goals_for}} - {{form_team.goals_against}}</td>
+                    <td>{{form_team.goals_difference}}</td>
+                    <td>{{form_team.points}}</td>
+                    <td>
+                        <button formmethod="get" type="submit" onclick="location.href='{% url 'deletetTableTeam' form_team.prefix%}'">Удалить</button>
+                        <button formmethod="get" type="submit" onclick="location.href='{% url 'blockUser' form_team.prefix%}'">Заблокировать</button>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <button>Сохранить изменения</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

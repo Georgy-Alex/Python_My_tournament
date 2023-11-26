@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'css/authorization.css' %}">
     <link rel="stylesheet" href="{% static 'css/my_Tournaments.css' %}">
     <link rel="stylesheet" href="{% static 'css/tournam.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tableTeam.css' %}">
     <link rel="stylesheet" href="{% static 'css/cardNews.css' %}">
     <link rel="stylesheet" href="{% static 'css/addTournament.css' %}">
     <link rel="stylesheet" href="{% static 'css/editTournam.css' %}">
@@ -24,6 +25,12 @@
                 return flagReg
             }
 
+
+
+
+
+
+
     </script>
 </head>
 <body>
@@ -32,12 +39,13 @@
     <div class="container">
         <div class="header-cap">
             <div class="logo">
-                <h3><a href="{% url 'home' %}">Logo</a></h3>
+                <h3><a href="{% url 'home' %}">РамФутбол</a></h3>
             </div>
             {%if user.is_authenticated%}
             <nav class="menu-header">
                 <ul class="authoriz">
                     <li class=""><a href="{% url 'my_Tournaments' %}">Мои турниры</a></li>
+                    <li class=""><a href="{% url 'myRegTournam' %}">Мои регистрации</a></li>
                     <li class=""><a href="{% url 'tournaments' %}">Турниры</a></li>
                     <li class=""><a href="{% url 'addTournament' %}">Создать турнир</a></li>
                 </ul>
@@ -64,9 +72,33 @@
     {% endblock %}
 </header>
 <main>
-    {%block content%}
-    <h1>Мои турниры</h1>
-    {% endblock %}
+    <section>
+        {%block content%}
+        <div class="containerSite">
+            <div class="site">
+                <h1 class="titleSite">РамФутбол</h1>
+                <p class="textSite">РамФутбол - ваш надежный партнер в создании захватывающих и профессиональных
+                    турниров.
+                    Мы предоставляем инструменты для организации различных видов соревнований:
+                    от видеоигр до настольных игр, спорта и многого другого.</p>
+            </div>
+            <div class="started">
+                <h2>Как начать?</h2>
+                <ul class="itemStarted">
+                    <ol>1: Зарегистрируйтесь: Создайте свой аккаунт для доступа ко всем функциям.</ol>
+                    <ol>2: Создайте турнир: Заполните детали, выберите правила и формат.</ol>
+                    <ol>3: Пригласите участников: Пригласите друзей, сообщество или партнеров присоединиться к вашему
+                        турниру.
+                    </ol>
+                    <ol>4: Начните соревнование: Отслеживайте ход турнира, общайтесь с создателем и наслаждайтесь
+                        организацией.
+                    </ol>
+                </ul>
+            </div>
+        </div>
+        {% endblock %}
+
+    </section>
 </main>
 </body>
 </html>
